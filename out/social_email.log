@@ -1,0 +1,35 @@
+[2025-10-07T22:43:49Z] email ingest start: host=imap.gmail.com addr=allenw@zgzg.io hours=72
+[2025-10-07T22:43:51Z] [imap] login failed: b'[AUTHENTICATIONFAILED] Invalid credentials (Failure)'
+[2025-10-07T22:51:29Z] email ingest start: host=imap.gmail.com addr=allenw@zgzg.io hours=72
+[2025-10-07T22:51:31Z] [imap] matched messages: 0
+[2025-10-07T22:51:31Z] ✅ saved: out/social.json
+[2025-10-07T22:55:50Z] email ingest start: host=imap.gmail.com addr=allenw@zgzg.io hours=72
+[2025-10-07T22:55:51Z] [imap] matched messages: 2
+[2025-10-07T22:55:53Z] ✅ saved: out/social.json
+[2025-10-07T23:08:14Z] email ingest start: host=imap.gmail.com addr=allenw@zgzg.io hours=72
+[2025-10-07T23:08:17Z] [imap] no messages matched.
+[2025-10-07T23:08:17Z] ✅ saved: out/social.json
+[2025-10-07T23:08:35Z] email ingest start: host=imap.gmail.com addr=allenw@zgzg.io hours=72
+[2025-10-07T23:08:37Z] [imap] matched messages: 2
+[2025-10-07T23:08:39Z] ✅ saved: out/social.json
+[2025-10-08T00:11:48Z] email ingest start: host=imap.gmail.com addr=allenw@zgzg.io hours=72
+[2025-10-08T00:11:50Z] [imap] matched messages by IMAP: 2
+[2025-10-08T00:11:51Z] ✅ saved: out/social.json
+[2025-10-08T00:12:49Z] email ingest start: host=imap.gmail.com addr=allenw@zgzg.io hours=72
+[2025-10-08T00:12:51Z] [imap] matched messages by IMAP: 2
+[2025-10-08T00:12:52Z] ✅ saved: out/social.json
+[2025-10-08T00:13:51Z] email ingest start: host=imap.gmail.com addr=allenw@zgzg.io hours=48
+[2025-10-08T00:13:52Z] [imap] matched messages by IMAP: 2
+[2025-10-08T00:13:53Z] ✅ saved: out/social.json
+[2025-10-08T00:48:35Z] email ingest start: host=imap.gmail.com addr=allenw@zgzg.io hours=48
+[2025-10-08T00:48:36Z] [imap] matched messages by IMAP: 2
+[2025-10-08T00:48:38Z] ✅ saved: out/social.json
+[2025-10-08T00:48:58Z] email ingest start: host=imap.gmail.com addr=allenw@zgzg.io hours=14
+[2025-10-08T00:49:00Z] [imap] matched messages by IMAP: 1
+[2025-10-08T00:49:01Z] ✅ saved: out/social.json
+[2025-10-08T04:48:24Z] email ingest start: host=imap.gmail.com addr=allenw@zgzg.io hours=14
+[2025-10-08T04:48:26Z] [imap] matched messages by IMAP: 1
+[2025-10-08T04:48:27Z] ✅ saved: out/social.json
+[2025-10-08T04:48:59Z] email ingest start: host=imap.gmail.com addr=allenw@zgzg.io hours=24
+[2025-10-08T04:49:01Z] [imap] matched messages by IMAP: 1
+[2025-10-08T04:49:02Z] ✅ saved: out/social.json

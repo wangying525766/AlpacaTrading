@@ -1,0 +1,9 @@
+[2025-10-06T05:49:35Z] crawl start: query=AI stocks OR semiconductors OR NVDA OR TSLA hours=6
+[2025-10-06T05:49:36Z] [twitter] search recent: from:OpenOutcrier ( "unusual options activity" OR "unusual activity" OR uoa OR "unusual call" OR "call flow" OR "calls sweep" OR "call sweeps" OR sweep ) has:cashtags -is:retweet -is:reply | start_time=2025-10-05T23:49:36.033051Z
+[2025-10-06T05:49:36Z] [twitter] search/recent failed: 400 {"errors":[{"parameters":{"query":["from:OpenOutcrier ( \"unusual options activity\" OR \"unusual activity\" OR uoa OR \
+[2025-10-06T05:49:36Z] [twitter] user @OpenOutcrier -> id 2334614718
+[2025-10-06T05:49:36Z] [reddit] https://api.pushshift.io/reddit/search/submission?q=AI+stocks+OR+semiconductors+OR+NVDA+OR+TSLA (subreddit:wallstreetbets OR subreddit:stocks OR subreddit:investing OR subreddit:options) timestamp:2025-10-06..&limit=1000
+[2025-10-06T05:49:37Z] [reddit] failed with status=403
+[2025-10-06T05:49:37Z] ⚠️ No data — using mock fallback.
+[2025-10-06T05:49:37Z] ✅ result saved: /Users/bytedance/Documents/Projects/AlpacaTradingAgent/tmp/crawl_20251005_224935.json
+[2025-10-06T05:49:37Z] crawl done.

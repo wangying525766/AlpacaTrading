@@ -1,0 +1,4 @@
+[2025-10-08T00:47:47Z] email ingest start: host=imap.gmail.com addr=allenw@zgzg.io hours=24
+[2025-10-08T00:47:49Z] [imap] matched messages by IMAP: 0
+[2025-10-08T00:47:49Z] ✅ saved: /Users/bytedance/Documents/Projects/AlpacaTradingAgent/tmp/crawl_20251007_174747.json
+[2025-10-08T00:47:49Z] ✅ saved: /Users/bytedance/Documents/Projects/AlpacaTradingAgent/tmp/crawl_20251007_174747.json

@@ -1,0 +1,36 @@
+[2025-10-06T03:37:22Z] crawl start: query=unusual call hours=72
+[2025-10-06T03:37:22Z] [twitter] user @OpenOutcrier -> id 2334614718
+[2025-10-06T03:40:06Z] crawl start: query=unusual call hours=72
+[2025-10-06T03:40:06Z] [twitter] user @OpenOutcrier -> id 2334614718
+[2025-10-06T03:40:06Z] [twitter] fetch tweets failed: 429 Client Error: Too Many Requests for url: https://api.x.com/2/users/2334614718/tweets?max_results=50&exclude=retweets%2Creplies&tweet.fields=created_at%2Clang
+[2025-10-06T03:40:06Z] [twitter] finished with 0 hits.
+[2025-10-06T03:40:07Z] [reddit] https://api.pushshift.io/reddit/search/submission?q=unusual+call (subreddit:wallstreetbets OR subreddit:stocks OR subreddit:investing OR subreddit:options) timestamp:2025-10-06..&limit=1000
+[2025-10-06T03:40:07Z] [reddit] failed with status=403
+[2025-10-06T03:40:07Z] ⚠️ No data — using mock fallback.
+[2025-10-06T03:40:07Z] ✅ result saved: out/social.json
+[2025-10-06T03:40:07Z] crawl done.
+[2025-10-06T03:43:28Z] crawl start: query=unusual call hours=72
+[2025-10-06T03:43:28Z] [twitter] search recent: from:OpenOutcrier (unusual call) -is:retweet -is:reply | start_time=2025-10-03T03:43:28.937352Z
+[2025-10-06T03:43:29Z] [twitter] finished with 0 hits.
+[2025-10-06T03:43:29Z] [reddit] https://api.pushshift.io/reddit/search/submission?q=unusual+call (subreddit:wallstreetbets OR subreddit:stocks OR subreddit:investing OR subreddit:options) timestamp:2025-10-06..&limit=1000
+[2025-10-06T03:43:29Z] [reddit] failed with status=403
+[2025-10-06T03:43:29Z] ⚠️ No data — using mock fallback.
+[2025-10-06T03:43:29Z] ✅ result saved: out/social.json
+[2025-10-06T03:43:29Z] crawl done.
+[2025-10-06T03:45:45Z] crawl start: query=unusual call hours=200
+[2025-10-06T03:45:45Z] [twitter] search recent: from:OpenOutcrier (unusual call) -is:retweet -is:reply | start_time=2025-09-27T19:45:45.274395Z
+[2025-10-06T03:45:45Z] [twitter] 429 rate-limited, sleeping 764s ...
+[2025-10-06T03:48:09Z] crawl start: query=unusual call hours=200
+[2025-10-06T03:48:09Z] [twitter] search recent: from:OpenOutcrier (unusual call) -is:retweet -is:reply | start_time=2025-09-27T19:48:09.692742Z
+[2025-10-06T03:48:09Z] [twitter] 429 rate-limited, sleeping 620s ...
+[2025-10-06T03:50:08Z] crawl start: query=unusual call hours=200
+[2025-10-06T03:50:08Z] [twitter] search recent in 14 slices, query=from:OpenOutcrier ( "unusual options activity" OR "unusual activity" OR uoa OR "unusual call" OR "call flow" OR "calls sweep" OR "call sweeps" OR sweep ) has:cashtags -is:retweet -is:reply
+[2025-10-06T03:50:08Z] [twitter] 429 rate-limited, sleeping 501s ...
+[2025-10-06T04:10:11Z] crawl start: query=AI stocks OR semiconductors OR NVDA OR TSLA hours=6
+[2025-10-06T04:10:11Z] [twitter] search recent: from:OpenOutcrier ( "unusual options activity" OR "unusual activity" OR uoa OR "unusual call" OR "call flow" OR "calls sweep" OR "call sweeps" OR sweep ) has:cashtags -is:retweet -is:reply | start_time=2025-10-05T22:10:11.306777Z
+[2025-10-06T04:10:11Z] [twitter] 429 rate-limited → fast-fail to mock.
+[2025-10-06T04:10:11Z] [reddit] https://api.pushshift.io/reddit/search/submission?q=AI+stocks+OR+semiconductors+OR+NVDA+OR+TSLA (subreddit:wallstreetbets OR subreddit:stocks OR subreddit:investing OR subreddit:options) timestamp:2025-10-06..&limit=1000
+[2025-10-06T04:10:11Z] [reddit] failed with status=403
+[2025-10-06T04:10:11Z] ⚠️ No data — using mock fallback.
+[2025-10-06T04:10:11Z] ✅ result saved: out/social.json
+[2025-10-06T04:10:11Z] crawl done.

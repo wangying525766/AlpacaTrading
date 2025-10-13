@@ -1,0 +1,25 @@
+version: "3.9"
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: alpaca-trading-agent:web
+    container_name: alpaca-trading-agent-web
+    env_file:
+      - .env
+    environment:
+      - PORT=7860
+      - TZ=America/New_York        # <-- set container timezone
+    ports:
+      - "127.0.0.1:7860:7860"
+    restart: unless-stopped
+    command: ["python", "run_webui_dash.py", "--server-name", "0.0.0.0", "--port", "7860"]
+    volumes:
+      - data-cache:/app/tradingagents/dataflows/data_cache
+      - /etc/localtime:/etc/localtime:ro   # <-- sync container clock with host
+      - /etc/timezone:/etc/timezone:ro     # <-- propagate host timezone name
+
+volumes:
+  data-cache:

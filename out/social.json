@@ -1,0 +1,55 @@
+{
+  "summary": "Email signals (last 24h, subj~\"Open OutCrier\"):\n• TMQ (mentions=3, avg_sent=+0.00)\n• AMD (mentions=3, avg_sent=+0.00)\n• TSLA (mentions=3, avg_sent=+0.00)\n• GOOGL (mentions=3, avg_sent=+0.00)\n• PYPL (mentions=3, avg_sent=+0.00)\n• DELL (mentions=3, avg_sent=+0.00)\n• ACET (mentions=3, avg_sent=+0.00)\n• BMEA (mentions=3, avg_sent=+0.00)\n• AEHR (mentions=3, avg_sent=+0.00)\n• NFLX (mentions=3, avg_sent=+0.00)",
+  "recommendations": [
+    {
+      "ticker": "TMQ",
+      "score": 3.0,
+      "reason": "mentions=3, avg_sent=+0.00"
+    },
+    {
+      "ticker": "AMD",
+      "score": 3.0,
+      "reason": "mentions=3, avg_sent=+0.00"
+    },
+    {
+      "ticker": "TSLA",
+      "score": 3.0,
+      "reason": "mentions=3, avg_sent=+0.00"
+    },
+    {
+      "ticker": "GOOGL",
+      "score": 3.0,
+      "reason": "mentions=3, avg_sent=+0.00"
+    },
+    {
+      "ticker": "PYPL",
+      "score": 3.0,
+      "reason": "mentions=3, avg_sent=+0.00"
+    },
+    {
+      "ticker": "DELL",
+      "score": 3.0,
+      "reason": "mentions=3, avg_sent=+0.00"
+    },
+    {
+      "ticker": "ACET",
+      "score": 3.0,
+      "reason": "mentions=3, avg_sent=+0.00"
+    },
+    {
+      "ticker": "BMEA",
+      "score": 3.0,
+      "reason": "mentions=3, avg_sent=+0.00"
+    },
+    {
+      "ticker": "AEHR",
+      "score": 3.0,
+      "reason": "mentions=3, avg_sent=+0.00"
+    },
+    {
+      "ticker": "NFLX",
+      "score": 3.0,
+      "reason": "mentions=3, avg_sent=+0.00"
+    }
+  ]
+}

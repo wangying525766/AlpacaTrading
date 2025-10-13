@@ -1,0 +1,202 @@
+Live trading on HIMS (paper=True) | SMA10/50 | feed=iex
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: HTTPSConnectionPool(host='data.alpaca.markets', port=443): Max retries exceeded with url: /v2/stocks/bars?start=2025-10-03T16%3A35%3A35.318460%2B00%3A00&end=2025-10-03T18%3A35%3A35.318460%2B00%3A00&limit=500&timeframe=1Min&adjustment=raw&feed=iex&symbols=HIMS (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x10a7e7190>: Failed to establish a new connection: [Errno 8] nodename nor servname provided, or not known'))
+ERROR: HTTPSConnectionPool(host='data.alpaca.markets', port=443): Max retries exceeded with url: /v2/stocks/bars?start=2025-10-03T18%3A11%3A03.946207%2B00%3A00&end=2025-10-03T20%3A11%3A03.946207%2B00%3A00&limit=500&timeframe=1Min&adjustment=raw&feed=iex&symbols=HIMS (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x10a7e7790>: Failed to establish a new connection: [Errno 8] nodename nor servname provided, or not known'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: HTTPSConnectionPool(host='data.alpaca.markets', port=443): Max retries exceeded with url: /v2/stocks/bars?start=2025-10-03T21%3A23%3A07.867400%2B00%3A00&end=2025-10-03T23%3A23%3A07.867400%2B00%3A00&limit=500&timeframe=1Min&adjustment=raw&feed=iex&symbols=HIMS (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x10aa09c90>: Failed to establish a new connection: [Errno 8] nodename nor servname provided, or not known'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: Could not find a suitable TLS CA certificate bundle, invalid path: /Users/bytedance/Documents/Projects/AlpacaTradingAgent/.venv/lib/python3.11/site-packages/certifi/cacert.pem
+ERROR: Could not find a suitable TLS CA certificate bundle, invalid path: /Users/bytedance/Documents/Projects/AlpacaTradingAgent/.venv/lib/python3.11/site-packages/certifi/cacert.pem
+ERROR: Could not find a suitable TLS CA certificate bundle, invalid path: /Users/bytedance/Documents/Projects/AlpacaTradingAgent/.venv/lib/python3.11/site-packages/certifi/cacert.pem
+ERROR: Could not find a suitable TLS CA certificate bundle, invalid path: /Users/bytedance/Documents/Projects/AlpacaTradingAgent/.venv/lib/python3.11/site-packages/certifi/cacert.pem
+ERROR: Could not find a suitable TLS CA certificate bundle, invalid path: /Users/bytedance/Documents/Projects/AlpacaTradingAgent/.venv/lib/python3.11/site-packages/certifi/cacert.pem
+ERROR: Could not find a suitable TLS CA certificate bundle, invalid path: /Users/bytedance/Documents/Projects/AlpacaTradingAgent/.venv/lib/python3.11/site-packages/certifi/cacert.pem
+ERROR: Could not find a suitable TLS CA certificate bundle, invalid path: /Users/bytedance/Documents/Projects/AlpacaTradingAgent/.venv/lib/python3.11/site-packages/certifi/cacert.pem
+ERROR: Could not find a suitable TLS CA certificate bundle, invalid path: /Users/bytedance/Documents/Projects/AlpacaTradingAgent/.venv/lib/python3.11/site-packages/certifi/cacert.pem
+ERROR: Could not find a suitable TLS CA certificate bundle, invalid path: /Users/bytedance/Documents/Projects/AlpacaTradingAgent/.venv/lib/python3.11/site-packages/certifi/cacert.pem
+ERROR: Could not find a suitable TLS CA certificate bundle, invalid path: /Users/bytedance/Documents/Projects/AlpacaTradingAgent/.venv/lib/python3.11/site-packages/certifi/cacert.pem
+ERROR: Could not find a suitable TLS CA certificate bundle, invalid path: /Users/bytedance/Documents/Projects/AlpacaTradingAgent/.venv/lib/python3.11/site-packages/certifi/cacert.pem
+ERROR: Could not find a suitable TLS CA certificate bundle, invalid path: /Users/bytedance/Documents/Projects/AlpacaTradingAgent/.venv/lib/python3.11/site-packages/certifi/cacert.pem
+ERROR: Could not find a suitable TLS CA certificate bundle, invalid path: /Users/bytedance/Documents/Projects/AlpacaTradingAgent/.venv/lib/python3.11/site-packages/certifi/cacert.pem
+ERROR: Could not find a suitable TLS CA certificate bundle, invalid path: /Users/bytedance/Documents/Projects/AlpacaTradingAgent/.venv/lib/python3.11/site-packages/certifi/cacert.pem
+ERROR: Could not find a suitable TLS CA certificate bundle, invalid path: /Users/bytedance/Documents/Projects/AlpacaTradingAgent/.venv/lib/python3.11/site-packages/certifi/cacert.pem
+ERROR: Could not find a suitable TLS CA certificate bundle, invalid path: /Users/bytedance/Documents/Projects/AlpacaTradingAgent/.venv/lib/python3.11/site-packages/certifi/cacert.pem
+ERROR: Could not find a suitable TLS CA certificate bundle, invalid path: /Users/bytedance/Documents/Projects/AlpacaTradingAgent/.venv/lib/python3.11/site-packages/certifi/cacert.pem
+ERROR: Could not find a suitable TLS CA certificate bundle, invalid path: /Users/bytedance/Documents/Projects/AlpacaTradingAgent/.venv/lib/python3.11/site-packages/certifi/cacert.pem
+ERROR: Could not find a suitable TLS CA certificate bundle, invalid path: /Users/bytedance/Documents/Projects/AlpacaTradingAgent/.venv/lib/python3.11/site-packages/certifi/cacert.pem
+ERROR: Could not find a suitable TLS CA certificate bundle, invalid path: /Users/bytedance/Documents/Projects/AlpacaTradingAgent/.venv/lib/python3.11/site-packages/certifi/cacert.pem
+ERROR: Could not find a suitable TLS CA certificate bundle, invalid path: /Users/bytedance/Documents/Projects/AlpacaTradingAgent/.venv/lib/python3.11/site-packages/certifi/cacert.pem
+ERROR: Could not find a suitable TLS CA certificate bundle, invalid path: /Users/bytedance/Documents/Projects/AlpacaTradingAgent/.venv/lib/python3.11/site-packages/certifi/cacert.pem
+ERROR: Could not find a suitable TLS CA certificate bundle, invalid path: /Users/bytedance/Documents/Projects/AlpacaTradingAgent/.venv/lib/python3.11/site-packages/certifi/cacert.pem
+ERROR: Could not find a suitable TLS CA certificate bundle, invalid path: /Users/bytedance/Documents/Projects/AlpacaTradingAgent/.venv/lib/python3.11/site-packages/certifi/cacert.pem
+ERROR: Could not find a suitable TLS CA certificate bundle, invalid path: /Users/bytedance/Documents/Projects/AlpacaTradingAgent/.venv/lib/python3.11/site-packages/certifi/cacert.pem
+ERROR: Could not find a suitable TLS CA certificate bundle, invalid path: /Users/bytedance/Documents/Projects/AlpacaTradingAgent/.venv/lib/python3.11/site-packages/certifi/cacert.pem
+ERROR: Could not find a suitable TLS CA certificate bundle, invalid path: /Users/bytedance/Documents/Projects/AlpacaTradingAgent/.venv/lib/python3.11/site-packages/certifi/cacert.pem
+ERROR: Could not find a suitable TLS CA certificate bundle, invalid path: /Users/bytedance/Documents/Projects/AlpacaTradingAgent/.venv/lib/python3.11/site-packages/certifi/cacert.pem
+ERROR: Could not find a suitable TLS CA certificate bundle, invalid path: /Users/bytedance/Documents/Projects/AlpacaTradingAgent/.venv/lib/python3.11/site-packages/certifi/cacert.pem
+ERROR: Could not find a suitable TLS CA certificate bundle, invalid path: /Users/bytedance/Documents/Projects/AlpacaTradingAgent/.venv/lib/python3.11/site-packages/certifi/cacert.pem
+ERROR: Could not find a suitable TLS CA certificate bundle, invalid path: /Users/bytedance/Documents/Projects/AlpacaTradingAgent/.venv/lib/python3.11/site-packages/certifi/cacert.pem
+ERROR: Could not find a suitable TLS CA certificate bundle, invalid path: /Users/bytedance/Documents/Projects/AlpacaTradingAgent/.venv/lib/python3.11/site-packages/certifi/cacert.pem
+ERROR: Could not find a suitable TLS CA certificate bundle, invalid path: /Users/bytedance/Documents/Projects/AlpacaTradingAgent/.venv/lib/python3.11/site-packages/certifi/cacert.pem
+ERROR: Could not find a suitable TLS CA certificate bundle, invalid path: /Users/bytedance/Documents/Projects/AlpacaTradingAgent/.venv/lib/python3.11/site-packages/certifi/cacert.pem
+ERROR: Could not find a suitable TLS CA certificate bundle, invalid path: /Users/bytedance/Documents/Projects/AlpacaTradingAgent/.venv/lib/python3.11/site-packages/certifi/cacert.pem
+ERROR: Could not find a suitable TLS CA certificate bundle, invalid path: /Users/bytedance/Documents/Projects/AlpacaTradingAgent/.venv/lib/python3.11/site-packages/certifi/cacert.pem
+ERROR: Could not find a suitable TLS CA certificate bundle, invalid path: /Users/bytedance/Documents/Projects/AlpacaTradingAgent/.venv/lib/python3.11/site-packages/certifi/cacert.pem
+ERROR: Could not find a suitable TLS CA certificate bundle, invalid path: /Users/bytedance/Documents/Projects/AlpacaTradingAgent/.venv/lib/python3.11/site-packages/certifi/cacert.pem
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: HTTPSConnectionPool(host='data.alpaca.markets', port=443): Max retries exceeded with url: /v2/stocks/bars?start=2025-10-05T08%3A13%3A48.029848%2B00%3A00&end=2025-10-05T10%3A13%3A48.029848%2B00%3A00&limit=500&timeframe=1Min&adjustment=raw&feed=iex&symbols=HIMS (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x10aa25a10>: Failed to establish a new connection: [Errno 8] nodename nor servname provided, or not known'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+ERROR: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))

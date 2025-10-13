@@ -1,0 +1,30 @@
+{
+  "summary": "Mock data: example trending tickers (Twitter/Reddit unavailable).",
+  "recommendations": [
+    {
+      "ticker": "NVDA",
+      "score": 8.7,
+      "reason": "mentions=20, avg_sent=+3.1"
+    },
+    {
+      "ticker": "TSLA",
+      "score": 7.9,
+      "reason": "mentions=18, avg_sent=+2.8"
+    },
+    {
+      "ticker": "AMD",
+      "score": 6.5,
+      "reason": "mentions=14, avg_sent=+1.7"
+    },
+    {
+      "ticker": "AAPL",
+      "score": 5.9,
+      "reason": "mentions=11, avg_sent=+1.2"
+    },
+    {
+      "ticker": "SMCI",
+      "score": 4.8,
+      "reason": "mentions=9,  avg_sent=+0.9"
+    }
+  ]
+}

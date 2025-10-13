@@ -1,0 +1,3 @@
+[2025-10-05T05:46:48Z] crawl start: query=AI stocks OR semiconductors OR NVDA OR TSLA hours=6 topk=8 min_mentions=3
+[2025-10-05T05:46:48Z] snscrape --jsonl --since 2025-10-04 23:46:48 twitter-search AI stocks OR semiconductors OR NVDA OR TSLA lang:en
+[2025-10-05T05:46:48Z] ERROR: snscrape not found. Please install with `pip install snscrape`.
