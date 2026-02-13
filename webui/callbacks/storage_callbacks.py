@@ -26,9 +26,10 @@ def register_storage_callbacks(app):
             Output("quick-llm", "value"),
             Output("deep-llm", "value")
         ],
-        Input("settings-store", "data")
+        Input("url", "pathname"),
+        State("settings-store", "data")
     )
-    def load_settings(stored_settings):
+    def load_settings(pathname, stored_settings):
         """Load settings from localStorage store"""
         if not stored_settings:
             # Return default settings if nothing stored

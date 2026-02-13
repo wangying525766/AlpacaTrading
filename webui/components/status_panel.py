@@ -23,6 +23,18 @@ def create_status_panel():
                     html.Div(id="reports-text", children="📊 Generated Reports: 0"),
                 ], width=4),
             ], className="mt-3"),
+            html.Hr(),
+            dbc.Row([
+                dbc.Col(
+                    dbc.Button("Refresh Status", id="refresh-btn", color="secondary", size="sm", className="mb-2"),
+                    width="auto"
+                ),
+                dbc.Col(
+                    html.Div("Status updates automatically every 0.5 seconds", className="text-info small"),
+                    width="auto",
+                    className="d-flex align-items-center"
+                ),
+            ], className="align-items-center"),
             html.Div(id="refresh-status", children="⏸️ Updates paused until analysis starts", className="text-secondary mt-2")
         ]),
         className="mb-4"

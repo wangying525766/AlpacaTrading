@@ -1,20 +1,21 @@
-# webui/callbacks/callbacks_strategy.py
+# webui/callbacks/strategy_callbacks.py
 from __future__ import annotations
 
-from dash import Input, Output, State, callback
+from dash import Input, Output, State
 from dash.exceptions import PreventUpdate
 from pathlib import Path
 from datetime import datetime
-import subprocess, os, re
+import subprocess, os, re, sys
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 HOME = Path.home()
 
-PYTHON_BIN   = str(PROJECT_ROOT / ".venv" / "bin" / "python")
-LOG_DIR      = PROJECT_ROOT / "logs"
+# Use current python executable
+PYTHON_BIN = sys.executable
+LOG_DIR = PROJECT_ROOT / "logs"
 LOG_DIR.mkdir(parents=True, exist_ok=True)
 
-# 防重复注册（Dash 热重载/多处 import 时很重要）
+# Prevent duplicate registration
 _CB_REGISTERED = False
 
 def register_strategy_callbacks(app):
@@ -23,13 +24,13 @@ def register_strategy_callbacks(app):
         return
     _CB_REGISTERED = True
 
-    # ---------- 回测：同步执行 trade.py，输出到 stg-output ----------
-    @callback(
-        Output("stg-output", "children", allow_duplicate=True),  # 可能与 start_live 共用同一输出
+    # ---------- Backtest: Synchronous execution of trade.py, output to stg-output ----------
+    @app.callback(
+        Output("stg-output", "children", allow_duplicate=True),
         Input("btn-stg-backtest", "n_clicks"),
         State("stg-symbol", "value"),
         State("stg-strategy", "value"),
-        State("stg-interval", "value"),   # 面板有这个，传给 trade.py（live 不用）
+        State("stg-interval", "value"),
         State("stg-start", "value"),
         State("stg-end", "value"),
         State("stg-fast", "value"),
@@ -55,7 +56,7 @@ def register_strategy_callbacks(app):
             PYTHON_BIN, "trade.py",
             "--symbol", symbol,
             "--strategy", strategy,
-            "--interval", interval,            # ✅ 回测保留 interval
+            "--interval", interval,
             "--start", (start or "2025-01-01"),
             "--fast", str(int(fast or 10)),
             "--slow", str(int(slow or 50)),
@@ -70,6 +71,7 @@ def register_strategy_callbacks(app):
             cmd += ["--plot"]
 
         try:
+            # Run from PROJECT_ROOT
             proc = subprocess.run(cmd, cwd=str(PROJECT_ROOT), capture_output=True, text=True, timeout=300)
             out  = (proc.stdout or "").strip()
             err  = (proc.stderr or "").strip()
@@ -84,15 +86,15 @@ def register_strategy_callbacks(app):
         except Exception as e:
             return f"❌ Exception running trade.py: {e}"
 
-    # ---------- 启动 live（后台、mode=auto），保存日志路径并启用轮询 ----------
-    @callback(
+    # ---------- Start Live (Background, mode=auto), save log path and enable polling ----------
+    @app.callback(
         Output("stg-output", "children", allow_duplicate=True),
         Output("stg-logfile", "data", allow_duplicate=True),
         Output("stg-log-poll", "disabled", allow_duplicate=True),
         Input("btn-stg-live", "n_clicks"),
         State("stg-symbol", "value"),
         State("stg-strategy", "value"),
-        # 注意：不再使用 interval 传给 live_trade.py，所以不取它
+        # Note: interval not passed to live_trade.py
         State("stg-fast", "value"),
         State("stg-slow", "value"),
         State("stg-hys", "value"),
@@ -152,8 +154,8 @@ def register_strategy_callbacks(app):
 
 
 
-    # ---------- 轮询日志：每2秒显示末尾 ----------
-    @callback(
+    # ---------- Poll Log: Show last 100 lines every 2 seconds ----------
+    @app.callback(
         Output("stg-live-log", "children", allow_duplicate=True),
         Input("stg-log-poll", "n_intervals"),
         State("stg-logfile", "data"),

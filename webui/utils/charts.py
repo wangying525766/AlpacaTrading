@@ -6,46 +6,64 @@ from datetime import datetime, timedelta
 import pandas as pd
 import traceback
 import pytz
-from tradingagents.dataflows.alpaca_utils import AlpacaUtils
-from tradingagents.dataflows.config import get_alpaca_api_key, get_alpaca_secret_key
-from alpaca.data.timeframe import TimeFrame, TimeFrameUnit
+import yfinance as yf
 from typing import Union
 
 def create_chart(ticker: str, period: str = "1y", end_date: Union[str, datetime] = None):
     """
-    Create a Plotly candlestick+volume chart for a given ticker and period.
+    Create a Plotly candlestick+volume chart for a given ticker and period using Yahoo Finance.
     Falls back to demo data if API fails or no bars are returned.
     """
-    # determine end and start datetimes (in UTC for the API)
-    now_utc = datetime.now(pytz.UTC)
-    if end_date:
-        end_dt = pd.to_datetime(end_date)
-        end_dt = end_dt.tz_localize(pytz.UTC) if end_dt.tzinfo is None else end_dt
-    else:
-        end_dt = now_utc
-
-    # Updated period mapping with proper differentiation
+    # Yahoo Finance Period & Interval Mapping
     period_map = {
-        "15m": ("15Min", timedelta(days=5)),      # 5 days of 15-minute data for 15m view (covers weekends)
-        "1d": ("5Min", timedelta(days=2)),        # 2 days of 5-minute data for 1d view (more detailed than 15m)
-        "1w": ("30Min", timedelta(days=10)),      # 10 days of 30-minute data for 1w view (more data, less gaps)
-        "1mo": ("1Hour", timedelta(days=45)),     # 45 days of 1-hour data for 1mo view (more data, less gaps)
-        "1y": ("1Day", timedelta(days=365)),
+        "15m": {"period": "5d", "interval": "15m"},      # 5 days of 15m data
+        "1d":  {"period": "1d", "interval": "5m"},       # 1 day of 5m data
+        "1w":  {"period": "5d", "interval": "30m"},      # 5 days of 30m data
+        "1mo": {"period": "1mo", "interval": "1h"},      # 1 month of 1h data
+        "1y":  {"period": "1y", "interval": "1d"},       # 1 year of daily data
     }
-    tf_str, delta = period_map.get(period, period_map["1y"])
-    start_dt = end_dt - delta
+    
+    # Default to 1y if period not found
+    yf_params = period_map.get(period, period_map["1y"])
+    
+    try:
+        # Fetch data from Yahoo Finance
+        # auto_adjust=True accounts for splits/dividends (simulating 'Adj Close' behavior for OHLC)
+        df = yf.download(
+            tickers=ticker, 
+            period=yf_params["period"], 
+            interval=yf_params["interval"], 
+            progress=False,
+            auto_adjust=True,
+            multi_level_index=False 
+        )
+        
+        # Yahoo Finance returns capitalized columns: Open, High, Low, Close, Volume
+        # Rename to lowercase to match existing plotting logic
+        df.rename(columns={
+            "Open": "open", 
+            "High": "high", 
+            "Low": "low", 
+            "Close": "close", 
+            "Volume": "volume"
+        }, inplace=True)
+        
+        # Ensure timestamp is a column (reset index)
+        df.reset_index(inplace=True)
+        
+        # Rename Date/Datetime to timestamp
+        if 'Date' in df.columns:
+            df.rename(columns={'Date': 'timestamp'}, inplace=True)
+        elif 'Datetime' in df.columns:
+            df.rename(columns={'Datetime': 'timestamp'}, inplace=True)
 
-    # fetch data
-    df = AlpacaUtils.get_stock_data(
-        symbol=ticker,
-        start_date=start_dt,
-        end_date=end_dt,
-        timeframe=tf_str
-    )
+    except Exception as e:
+        print(f"Error fetching data from Yahoo Finance for {ticker}: {e}")
+        df = pd.DataFrame()
 
     # if we got no data, make a demo chart
     if df.empty:
-        return create_demo_chart(ticker, period, end_date, error_msg="No data returned from Alpaca API.")
+        return create_demo_chart(ticker, period, end_date, error_msg="No data returned from Yahoo Finance.")
 
     # build chart
     fig = go.Figure()
@@ -63,19 +81,17 @@ def create_chart(ticker: str, period: str = "1y", end_date: Union[str, datetime]
     
     # Improved layout with better gap handling - different rangebreaks for different timeframes
     rangebreaks = []
-    if "/" not in ticker:  # Only apply to stocks, not crypto
-        if period in ["15m", "1d"]:
-            # For intraday charts, hide non-trading hours
-            rangebreaks = [
-                dict(bounds=["sat", "mon"]),  # Hide weekends
-                dict(bounds=[20, 9.5], pattern="hour"),  # Hide non-trading hours (8PM to 9:30AM)
-            ]
-        elif period in ["1w", "1mo"]:
-            # For weekly/monthly charts, only hide weekends
-            rangebreaks = [
-                dict(bounds=["sat", "mon"]),  # Hide weekends
-            ]
-        # For 1y charts, no rangebreaks to avoid issues with daily data
+    if "/" not in ticker and period not in ["1y"]:  # Only apply to stocks, not crypto, and not daily charts
+        # For intraday charts, hide non-trading hours
+        rangebreaks = [
+            dict(bounds=["sat", "mon"]),  # Hide weekends
+            dict(bounds=[16, 9.5], pattern="hour"),  # Hide non-trading hours (4PM to 9:30AM) - approximate
+        ]
+    elif period in ["1y"]:
+        # For daily charts, just hide weekends
+        rangebreaks = [
+            dict(bounds=["sat", "mon"]),
+        ]
     
     fig.update_layout(
         title=title,

@@ -127,7 +127,7 @@ def run_analysis(ticker, selected_analysts, research_depth, allow_shorts, quick_
         config["max_debate_rounds"] = research_depth
         config["max_risk_discuss_rounds"] = research_depth
         config["allow_shorts"] = allow_shorts
-        config["parallel_analysts"] = False  # Always use sequential execution
+        config["parallel_analysts"] = True  # Use parallel execution for analysts
         config["quick_think_llm"] = quick_llm
         config["deep_think_llm"] = deep_llm
         
@@ -187,7 +187,7 @@ def run_analysis(ticker, selected_analysts, research_depth, allow_shorts, quick_
         }
         
         # Use real chart data with current date (no end_date means most recent data)
-        current_state["chart_data"] = create_chart(ticker, period="1y", end_date=None)
+        current_state["chart_data"] = create_chart(ticker, period="1d", end_date=None)
         
         current_state["analysis_complete"] = True
         
@@ -267,4 +267,4 @@ def start_analysis(ticker, analysts_market, analysts_social, analysts_news, anal
     # Update the status message with more details
     trading_mode = "Trading Mode (LONG/NEUTRAL/SHORT)" if allow_shorts else "Investment Mode (BUY/HOLD/SELL)"
     trade_text = f" with ${getattr(app_state, 'trade_amount', 1000)} auto-trading" if getattr(app_state, 'trade_enabled', False) else ""
-    return f"Real-time analysis started for {ticker} with {len(selected_analysts)} analysts in {trading_mode}{trade_text} using sequential execution and current market data. Status table will update automatically." 
+    return f"Real-time analysis started for {ticker} with {len(selected_analysts)} analysts in {trading_mode}{trade_text} using parallel execution and current market data. Status table will update automatically." 

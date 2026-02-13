@@ -6,14 +6,14 @@ Organizes the main application layout and component assembly
 from dash import dcc, html
 import dash_bootstrap_components as dbc
 from webui.components.strategy_panel import create_strategy_panel
-from webui.components.social_panel import create_social_panel
 from webui.components.header import create_header
 from webui.components.config_panel import create_config_panel
 from webui.components.status_panel import create_status_panel
 from webui.components.chart_panel import create_chart_panel
 from webui.components.decision_panel import create_decision_panel
 from webui.components.reports_panel import create_reports_panel
-from webui.components.alpaca_account import render_alpaca_account_section
+from webui.components.dashboard_panel import create_dashboard_panel
+from webui.components.backtest_panel import create_backtest_panel
 from webui.config.constants import COLORS, REFRESH_INTERVALS
 
 
@@ -50,29 +50,11 @@ def create_stores():
     """Create store components for state management"""
     from webui.utils.storage import create_storage_store_component
     return [
+        dcc.Location(id='url', refresh=False),
         dcc.Store(id='app-store'),
-        dcc.Store(id='chart-store', data={'last_symbol': None, 'selected_period': '1y'}),
+        dcc.Store(id='chart-store', data={'last_symbol': None, 'selected_period': '1d'}),
         create_storage_store_component()
     ]
-
-
-def create_footer():
-    """Create the footer section"""
-    return dbc.Row(
-        [
-            dbc.Col(
-                dbc.Button("Refresh Status", id="refresh-btn", color="secondary", className="mb-2"),
-                width="auto",
-                className="d-flex justify-content-center"
-            ),
-            dbc.Col(
-                html.Div("Status updates automatically every 0.5 seconds", className="text-info small"),
-                width="auto",
-                className="d-flex align-items-center"
-            ),
-        ],
-        className="d-flex justify-content-center"
-    )
 
 
 def create_main_layout():
@@ -86,16 +68,38 @@ def create_main_layout():
     decision_card = create_decision_panel()
     reports_card = create_reports_panel()
     
-    # Create Alpaca account card
-    alpaca_account_card = dbc.Card(
-        dbc.CardBody([
-            render_alpaca_account_section()
-        ]),
-        className="mb-4"
-    )
-    # Strategy card (回测 & 实盘策略入口)
+    # Create Dashboard card (replaces Alpaca account card)
+    dashboard_card = create_dashboard_panel()
+    
+    # Strategy card (moved to tab)
     strategy_card = create_strategy_panel()
-    social_card = create_social_panel()
+    
+    # Backtest card
+    backtest_card = create_backtest_panel()
+    
+    # Deep Analysis Layout
+    deep_analysis_content = html.Div([
+        dbc.Row([
+            dbc.Col(config_card, md=6),
+            dbc.Col([
+                chart_card,
+                html.Div(className="mb-3"),
+                status_card,
+                html.Div(className="mb-3"),
+                decision_card,
+            ], md=6)
+        ]),
+        html.Div(className="mt-4"),
+        reports_card
+    ])
+    
+    # Main Tabs Layout
+    main_tabs = dbc.Tabs([
+        dbc.Tab(dashboard_card, label="Dashboard", tab_id="main-tab-dashboard", label_style={"fontWeight": "bold"}),
+        dbc.Tab(deep_analysis_content, label="Deep Analysis", tab_id="main-tab-analysis", label_style={"fontWeight": "bold"}),
+        dbc.Tab(strategy_card, label="Strategy", tab_id="main-tab-strategy", label_style={"fontWeight": "bold"}),
+        dbc.Tab(backtest_card, label="Backtest", tab_id="main-tab-backtest", label_style={"fontWeight": "bold"}),
+    ], id="main-content-tabs", active_tab="main-tab-dashboard", className="mb-4")
 
     # Assemble the layout
     layout = dbc.Container(
@@ -160,28 +164,8 @@ def create_main_layout():
             
             # Main content
             header,
-            alpaca_account_card,
-            dbc.Row([
-                dbc.Col(strategy_card, md=8, style={"paddingRight": "8px"}),
-                dbc.Col(
-                    # 右侧做成吸附布局，滚动时更好用
-                    html.Div(social_card, style={"position": "sticky", "top": "12px"}),
-                    md=4, style={"paddingLeft": "8px"}
-                ),
-            ]),
-            dbc.Row([
-                dbc.Col(config_card, md=6),
-                dbc.Col([
-                    chart_card,
-                    html.Div(className="mb-3"),  # Add some spacing
-                    status_card,
-                    html.Div(className="mb-3"),  # Add some spacing
-                    decision_card,
-                ], md=6)
-            ]),
-            reports_card,
+            main_tabs,
             html.Div(className="mt-4"),
-            create_footer(),
         ],
         fluid=True,
         className="p-4",

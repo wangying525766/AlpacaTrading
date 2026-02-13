@@ -2,6 +2,7 @@ import pandas as pd
 from stockstats import wrap
 from typing import Annotated
 import os
+import yfinance as yf
 from .config import get_config
 from .alpaca_utils import AlpacaUtils
 
@@ -60,7 +61,7 @@ class StockstatsUtils:
 
             data_file = os.path.join(
                 config["data_cache_dir"],
-                f"{safe_symbol}-Alpaca-data-{start_date_str}-{end_date_str}.csv",
+                f"{safe_symbol}-Yahoo-data-{start_date_str}-{end_date_str}.csv",
             )
 
             try:
@@ -82,17 +83,31 @@ class StockstatsUtils:
                         if cap in data.columns and low not in data.columns:
                             data[low] = data[cap]
                 else:
-                    # Fetch fresh data from Alpaca
-                    data = AlpacaUtils.get_stock_data(
-                        symbol=symbol,  # Use original symbol for API call
-                        start_date=start_date_str,
-                        end_date=end_date_str,
-                        timeframe="1Day"
-                    )
+                    # Fetch fresh data from Yahoo Finance
+                    print(f"Fetching data for {symbol} from Yahoo Finance...")
+                    
+                    ticker_obj = yf.Ticker(symbol)
+                    data = ticker_obj.history(start=start_date_str, end=end_date_str, interval="1d")
                     
                     # Ensure we have data
                     if data.empty:
                         return f"N/A: No data available for {symbol}"
+                    
+                    # Reset index to make Date a column if it's in index
+                    data = data.reset_index()
+                    
+                    # Rename columns to match what stockstats expects (lowercase)
+                    data = data.rename(columns={
+                        "Date": "date",
+                        "Open": "open",
+                        "High": "high",
+                        "Low": "low",
+                        "Close": "close",
+                        "Volume": "volume"
+                    })
+                    
+                    # Save to cache
+                    data.to_csv(data_file, index=False)
                     
                     # Clean data and handle duplicates to prevent reindex errors
                     data = data.dropna()

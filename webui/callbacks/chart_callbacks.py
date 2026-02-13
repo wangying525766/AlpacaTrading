@@ -164,7 +164,7 @@ def register_chart_callbacks(app):
         elif chart_store_data and "selected_period" in chart_store_data:
             selected_period = chart_store_data["selected_period"]
         else:
-            selected_period = "1y"  # Default to 1Y to match button default
+            selected_period = "1d"  # Default to 1D to match requested default
 
         # print(f"[CHART] Using period: {selected_period}")
 
@@ -213,7 +213,7 @@ def register_chart_callbacks(app):
     )
     def update_active_period_button(n_1d, n_1w, n_1mo, n_1y):
         """Update which period button is active"""
-        button_id = ctx.triggered_id if ctx.triggered_id else "period-1y"
+        button_id = ctx.triggered_id if ctx.triggered_id else "period-1d"
         
         return (
             button_id == "period-1d",

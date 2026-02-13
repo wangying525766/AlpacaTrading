@@ -867,40 +867,75 @@ class Toolkit:
             timeframe (str): Timeframe for data (1Min, 5Min, 15Min, 1Hour, 1Day)
             
         Returns:
-            str: A comprehensive table containing Date, OHLCV, VWAP data for the lookback period
+            str: A comprehensive table containing Date, OHLCV data for the lookback period
         """
 
-        # Get the raw data from the interface
-        raw_result = interface.get_alpaca_data_window(
-            symbol, curr_date, look_back_days, timeframe
-        )
+        import yfinance as yf
+        import pandas as pd
+        from datetime import datetime, timedelta
         
-        # Parse and reformat the timestamp column to be more readable
-        import re
+        curr_dt = pd.to_datetime(curr_date)
+        start_dt = curr_dt - pd.Timedelta(days=look_back_days)
+        start_date_str = start_dt.strftime("%Y-%m-%d")
+        
+        # Map timeframe to yfinance interval
+        interval_map = {
+            "1Day": "1d",
+            "1Hour": "1h",
+            "15Min": "15m",
+            "5Min": "5m",
+            "1Min": "1m"
+        }
+        interval = interval_map.get(timeframe, "1d")
         
         try:
-            # Use regex to replace complex timestamps with simple dates
-            # Pattern: 2025-07-08 04:00:00+00:00 -> 2025-07-08
-            timestamp_pattern = r'(\d{4}-\d{2}-\d{2})\s+\d{2}:\d{2}:\d{2}[+\-]\d{2}:\d{2}'
+            # Use yfinance instead of Alpaca
+            ticker_obj = yf.Ticker(symbol)
+            df = ticker_obj.history(start=start_date_str, end=curr_date, interval=interval)
             
-            # Replace the header line
-            result = raw_result.replace('timestamp', 'Date')
+            if df.empty:
+                return f"No data found for {symbol} from {start_date_str} to {curr_date}"
             
-            # Replace all timestamp values with just the date
-            result = re.sub(timestamp_pattern, r'\1', result)
+            # Reset index to make Date a column
+            df = df.reset_index()
             
-            # Also clean up any remaining timezone info
-            result = re.sub(r'\s+\d{2}:\d{2}:\d{2}[+\-]\d{2}:\d{2}', '', result)
+            # Rename columns to standard format
+            column_map = {
+                "Date": "Date",
+                "Datetime": "Date",
+                "Open": "Open",
+                "High": "High",
+                "Low": "Low",
+                "Close": "Close",
+                "Volume": "Volume"
+            }
+            df = df.rename(columns=column_map)
             
-            # Update the title
-            result = result.replace('Stock data for', 'Stock Data Table for')
-            result = result.replace('from 2025-', f'({look_back_days}-day lookback)\nFrom 2025-')
+            # Ensure Date format
+            if 'Date' in df.columns:
+                if interval == "1d":
+                    df['Date'] = pd.to_datetime(df['Date']).dt.strftime('%Y-%m-%d')
+                else:
+                    df['Date'] = pd.to_datetime(df['Date']).dt.strftime('%Y-%m-%d %H:%M')
+            
+            # Select and order columns
+            cols = ['Date', 'Open', 'High', 'Low', 'Close', 'Volume']
+            available_cols = [c for c in cols if c in df.columns]
+            df = df[available_cols]
+            
+            # Round price columns
+            for col in ['Open', 'High', 'Low', 'Close']:
+                if col in df.columns:
+                    df[col] = df[col].round(2)
+            
+            # Format title
+            result = f"## Stock Data Table for {symbol} ({look_back_days}-day lookback)\n"
+            result += df.to_string(index=False)
             
             return result
                 
         except Exception as e:
-            # Fallback to original if any processing fails
-            return raw_result
+            return f"Error getting stock data for {symbol}: {str(e)}"
 
     @staticmethod
     @tool
@@ -989,23 +1024,38 @@ class Toolkit:
         
         # Get raw stock data first to calculate all indicators at once
         try:
-            from tradingagents.dataflows.alpaca_utils import AlpacaUtils
+            import yfinance as yf
             import pandas as pd
             
             # Get extended data for proper indicator calculation (need more history)
-            start_date_extended = curr_dt - pd.Timedelta(days=200)  # More history for proper indicators
+            start_date_extended = curr_dt - pd.Timedelta(days=365)  # More history for proper indicators
             
             # Get stock data
-            stock_data = AlpacaUtils.get_stock_data(
-                symbol=symbol,
-                start_date=start_date_extended.strftime('%Y-%m-%d'),
-                end_date=curr_date,
-                timeframe="1Day"
-            )
+            ticker_obj = yf.Ticker(symbol)
+            stock_data = ticker_obj.history(start=start_date_extended.strftime("%Y-%m-%d"), end=curr_date, interval="1d")
             
             if stock_data.empty:
-                results.append("| ERROR | No stock data available for indicator calculations |")
-                return "\n".join(results)
+                return f"Error: No market data found for {symbol}"
+            
+            # Reset index to make Date a column
+            stock_data = stock_data.reset_index()
+            
+            # Standardize columns
+            stock_data = stock_data.rename(columns={
+                "Date": "date",
+                "Open": "open", 
+                "High": "high", 
+                "Low": "low", 
+                "Close": "close", 
+                "Volume": "volume"
+            })
+            
+            # Ensure date column is datetime and format it
+            stock_data['date'] = pd.to_datetime(stock_data['date']).dt.strftime('%Y-%m-%d')
+            
+            # Convert to stockstats format (requires dataframe with these columns)
+            from stockstats import wrap
+            stock = wrap(stock_data)
             
             # Clean data and ensure proper indexing
             stock_data = stock_data.dropna()
