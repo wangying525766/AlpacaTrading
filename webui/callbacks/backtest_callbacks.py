@@ -84,7 +84,7 @@ def register_backtest_callbacks(app):
             try:
                 df = pd.read_csv(f)
                 if 'ticker' in df.columns:
-                    df_ticker = df[df['ticker'] == ticker].copy()
+                    df_ticker = df[df['ticker'].str.upper() == ticker].copy()
                     if not df_ticker.empty:
                         all_levels_data.append(df_ticker)
             except Exception as e:
