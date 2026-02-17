@@ -270,7 +270,7 @@ def update_market_data():
     # Pre-market fetch logic
     pre_market_file = OUT_DIR / "pre_market.json"
 
-    if now_pst.time() > dt.time(6, 30):
+    if now_pst > dt.time(6, 30):
         print("Fetching Pre-Market (OpenOutCrier)...")
         pre_market_data = fetch_latest_email("Open Outcrier", sender_email=None, hours=12)
         # Only write file if data is valid
@@ -284,7 +284,7 @@ def update_market_data():
         
     # Post-market fetch logic
     post_market_file = OUT_DIR / "post_market.json"
-    if now_pst.time() > dt.time(13, 40):
+    if now_pst > dt.time(13, 40):
         print("Fetching Post-Market (FlowAlgo)...")
         post_market_data = fetch_latest_email("FlowAlgo", sender_email="allenw@zgzg.io", hours=12)
         # Only write file if data is valid

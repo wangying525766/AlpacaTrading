@@ -262,14 +262,14 @@ def create_dashboard_panel():
             
             dbc.Tabs([
                 dbc.Tab(
-                    dbc.Card(dbc.CardBody(id="pre-market-content"), className="mt-3 border-0"),
+                    dbc.Card(dbc.CardBody(id="pre-market-content", children="Loading..."), className="mt-3 border-0"),
                     label="Pre-Market",
                     tab_id="tab-pre-market",
                     label_style={"color": "#ccc"},
                     active_label_style={"color": "#fff", "fontWeight": "bold", "borderBottom": "2px solid #0d6efd"}
                 ),
                 dbc.Tab(
-                    dbc.Card(dbc.CardBody(id="post-market-content"), className="mt-3 border-0"),
+                    dbc.Card(dbc.CardBody(id="post-market-content", children="Loading..."), className="mt-3 border-0"),
                     label="Post-Market (Big Flow)",
                     tab_id="tab-post-market",
                     label_style={"color": "#ccc"},
