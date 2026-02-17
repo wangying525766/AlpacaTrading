@@ -28,8 +28,7 @@ EMAIL_APP_PASSWORD = os.getenv("EMAIL_APP_PASSWORD")
 # Output paths
 OUT_DIR = Path("out")
 ATTACHMENT_DIR = OUT_DIR / "attachments"
-PRE_MARKET_FILE = OUT_DIR / "pre_market.json"
-POST_MARKET_FILE = OUT_DIR / "post_market.json"
+
 
 def safe_decode(bytes_or_str, enc='utf-8'):
     if isinstance(bytes_or_str, bytes):
@@ -255,26 +254,47 @@ def parse_open_outcrier_content(content):
         "losers": losers
     }
 
+import pytz
+
 def update_market_data():
     """Fetch and update both pre and post market data"""
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     
-    # Fetch Pre-Market (OpenOutCrier) - Search "Open Outcrier"
-    print("Fetching Pre-Market (OpenOutCrier)...")
-    # Note: Sender might be different (e.g. oyez@openoutcrier.com), so we don't restrict sender here, just subject
-    pre_market_data = fetch_latest_email("Open Outcrier", sender_email=None, hours=48)
-    if "error" in pre_market_data or "message" in pre_market_data:
-         # Fallback: try searching without time constraint if recent failed, or log
-         print(f"Pre-market fetch result: {pre_market_data}")
+    pre_market_data = None
+    post_market_data = None
 
-    with open(PRE_MARKET_FILE, "w") as f:
-        json.dump(pre_market_data, f, indent=2, default=str)
+    # Timezone setup
+    pst = pytz.timezone('America/Los_Angeles')
+    now_pst = dt.datetime.now(pst).time()
+    
+    # Pre-market fetch logic
+    pre_market_file = OUT_DIR / "pre_market.json"
+
+    if now_pst.time() > dt.time(6, 30):
+        print("Fetching Pre-Market (OpenOutCrier)...")
+        pre_market_data = fetch_latest_email("Open Outcrier", sender_email=None, hours=12)
+        # Only write file if data is valid
+        if pre_market_data and "error" not in pre_market_data and "message" not in pre_market_data:
+            with open(pre_market_file, "w") as f:
+                json.dump(pre_market_data, f, indent=2, default=str)
+        else:
+            print(f"Pre-market fetch did not yield valid data: {pre_market_data}")
+    else:
+        print("Skipping pre-market fetch. It is before 6:30 AM PST.")
         
-    # Fetch Post-Market (FlowAlgo) - Search "FlowAlgo"
-    print("Fetching Post-Market (FlowAlgo)...")
-    post_market_data = fetch_latest_email("FlowAlgo", sender_email="allenw@zgzg.io", hours=24)
-    with open(POST_MARKET_FILE, "w") as f:
-        json.dump(post_market_data, f, indent=2, default=str)
+    # Post-market fetch logic
+    post_market_file = OUT_DIR / "post_market.json"
+    if now_pst.time() > dt.time(13, 40):
+        print("Fetching Post-Market (FlowAlgo)...")
+        post_market_data = fetch_latest_email("FlowAlgo", sender_email="allenw@zgzg.io", hours=12)
+        # Only write file if data is valid
+        if post_market_data and "error" not in post_market_data and "message" not in post_market_data:
+            with open(post_market_file, "w") as f:
+                json.dump(post_market_data, f, indent=2, default=str)
+        else:
+            print(f"Post-market fetch did not yield valid data: {post_market_data}")
+    else:
+        print("Skipping post-market fetch. It is before 1:40 PM PST.")
         
     return {
         "pre_market": pre_market_data,

@@ -104,6 +104,12 @@ def create_main_layout():
     # Assemble the layout
     layout = dbc.Container(
         [
+            dcc.Interval(
+                id='dashboard-load-interval',
+                interval=1*1000, # in milliseconds
+                n_intervals=0,
+                max_intervals=1 # Run only once
+            ),
             # Intervals and stores
             *create_intervals(),
             *create_stores(),

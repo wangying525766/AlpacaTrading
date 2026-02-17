@@ -2,7 +2,7 @@
 webui/components/dashboard_panel.py
 """
 
-from dash import html, dcc
+from dash import html
 import dash_bootstrap_components as dbc
 import json
 import os
@@ -148,12 +148,15 @@ def render_pre_market_table(data_list, is_gainer=True):
     return dbc.Table([header, body], hover=True, borderless=True, responsive=True, className="table-dark", style={"backgroundColor": "transparent"})
 
 def render_email_content(data, title, is_post_market=False):
-    if not data:
+    # Check for various "no data" conditions
+    if not data or data.get('body') == 'No content' or ("message" in data and data.get("message")):
+        unavailable_message = f"Pre-market data not available. This may be due to a holiday or weekend."
         return html.Div([
-            html.H5(title, className="card-title text-muted"),
-            html.P("No data available. Click Refresh to fetch.", className="text-muted")
+            html.H5(title, className="card-title"),
+            html.Hr(),
+            html.P(unavailable_message, className="card-text text-warning")
         ])
-        
+
     if "error" in data:
             return html.Div([
             html.H5(title, className="card-title text-danger"),
@@ -243,10 +246,6 @@ def render_email_content(data, title, is_post_market=False):
 
 def create_dashboard_panel():
     """Create the main dashboard panel with Pre/Post market data"""
-    
-    pre_market_data = get_market_data("pre_market.json")
-    post_market_data = get_market_data("post_market.json")
-    
     return dbc.Card(
         dbc.CardBody([
             dbc.Row([
@@ -263,14 +262,14 @@ def create_dashboard_panel():
             
             dbc.Tabs([
                 dbc.Tab(
-                    dbc.Card(dbc.CardBody(id="pre-market-content", children=render_email_content(pre_market_data, "Pre-Market (OpenOutCrier)")), className="mt-3 border-0"),
+                    dbc.Card(dbc.CardBody(id="pre-market-content"), className="mt-3 border-0"),
                     label="Pre-Market",
                     tab_id="tab-pre-market",
                     label_style={"color": "#ccc"},
                     active_label_style={"color": "#fff", "fontWeight": "bold", "borderBottom": "2px solid #0d6efd"}
                 ),
                 dbc.Tab(
-                    dbc.Card(dbc.CardBody(id="post-market-content", children=render_email_content(post_market_data, "Post-Market (Big Flow)", is_post_market=True)), className="mt-3 border-0"),
+                    dbc.Card(dbc.CardBody(id="post-market-content"), className="mt-3 border-0"),
                     label="Post-Market (Big Flow)",
                     tab_id="tab-post-market",
                     label_style={"color": "#ccc"},
@@ -281,5 +280,5 @@ def create_dashboard_panel():
             html.Div(id="dashboard-refresh-status", className="mt-2 text-muted small")
         ]),
         className="mb-4 shadow-sm",
-        style={"backgroundColor": "#1e1e1e", "border": "1px solid #333"} # Dark theme card
+        style={"backgroundColor": "#1e1e1e", "border": "1px solid #333"}
     )
