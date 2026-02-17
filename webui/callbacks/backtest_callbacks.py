@@ -94,18 +94,39 @@ def register_backtest_callbacks(app):
         if all_levels_data:
             levels_df = pd.concat(all_levels_data, ignore_index=True)
             levels_df.drop_duplicates(subset=['level'], inplace=True)
+
+            # Add a scatter trace for the legend
+            fig.add_trace(go.Scatter(
+                x=[None],
+                y=[None],
+                mode='lines',
+                line=dict(color="MediumPurple", width=1, dash="dashdot"),
+                name='Key Levels'
+            ))
+
             for index, row in levels_df.iterrows():
+                level_price = row['level']
                 fig.add_shape(
                     type="line",
                     x0=hist.index[0],
-                    y0=row['level'],
+                    y0=level_price,
                     x1=hist.index[-1],
-                    y1=row['level'],
+                    y1=level_price,
                     line=dict(
                         color="MediumPurple",
                         width=1,
                         dash="dashdot",
                     ),
+                    name=f"Level ${level_price:.2f}",
+                )
+                fig.add_annotation(
+                    x=hist.index[-1],
+                    y=level_price,
+                    text=f"${level_price:.2f}",
+                    showarrow=False,
+                    xanchor="left",
+                    yanchor="middle",
+                    font=dict(color="MediumPurple", size=10)
                 )
 
         # --- Step 4: Load and Process BigFlow Data (if available) ---
