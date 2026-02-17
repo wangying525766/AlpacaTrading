@@ -16,7 +16,8 @@ PASS = os.getenv("EMAIL_APP_PASSWORD")
 FOLDER = os.getenv("EMAIL_FOLDER", "INBOX")
 DATA_DIRS = {
     "bigflow": "data/bigflow",
-    "unusual_flow": "data/unusual_flow"
+    "unusual_flow": "data/unusual_flow",
+    "key_levels": "data/key_levels"
 }
 FETCH_DAYS = 60
 
@@ -66,6 +67,8 @@ def fetch_and_save_data():
                     file_type_key = "unusual_flow"
                 elif "bigflow" in fname.lower():
                     file_type_key = "bigflow"
+                elif "levels" in fname.lower():
+                    file_type_key = "key_levels"
 
                 if not file_type_key:
                     continue
@@ -78,7 +81,12 @@ def fetch_and_save_data():
                 formatted_date = f"{date_str[:4]}-{date_str[4:6]}-{date_str[6:]}"
                 
                 dest_dir = Path(DATA_DIRS[file_type_key])
-                file_prefix = "unusual" if file_type_key == "unusual_flow" else "bigflow"
+                if file_type_key == "unusual_flow":
+                    file_prefix = "unusual"
+                elif file_type_key == "bigflow":
+                    file_prefix = "bigflow"
+                else:
+                    file_prefix = "key_levels"
                 out_filename = f"{file_prefix}_{formatted_date}.csv"
                 dest_file_path = dest_dir / out_filename
 

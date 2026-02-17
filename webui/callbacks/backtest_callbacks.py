@@ -77,7 +77,38 @@ def register_backtest_callbacks(app):
 
         price_source = "yfinance"
         
-        # --- Step 3: Load and Process BigFlow Data (if available) ---
+        # --- Step 3: Load and Process Key Levels Data ---
+        key_levels_files = glob.glob("data/key_levels/key_levels_*.csv")
+        all_levels_data = []
+        for f in key_levels_files:
+            try:
+                df = pd.read_csv(f)
+                if 'ticker' in df.columns:
+                    df_ticker = df[df['ticker'] == ticker].copy()
+                    if not df_ticker.empty:
+                        all_levels_data.append(df_ticker)
+            except Exception as e:
+                print(f"Error processing {f}: {e}")
+                continue
+
+        if all_levels_data:
+            levels_df = pd.concat(all_levels_data, ignore_index=True)
+            levels_df.drop_duplicates(subset=['level'], inplace=True)
+            for index, row in levels_df.iterrows():
+                fig.add_shape(
+                    type="line",
+                    x0=hist.index[0],
+                    y0=row['level'],
+                    x1=hist.index[-1],
+                    y1=row['level'],
+                    line=dict(
+                        color="MediumPurple",
+                        width=1,
+                        dash="dashdot",
+                    ),
+                )
+
+        # --- Step 4: Load and Process BigFlow Data (if available) ---
         bigflow_files = glob.glob("data/bigflow/bigflow_*.csv")
         all_flow_data = []
         
