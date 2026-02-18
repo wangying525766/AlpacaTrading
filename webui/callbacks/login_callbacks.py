@@ -1,11 +1,14 @@
 
 from dash import dcc, html, Input, Output, State, callback, no_update
 import dash_bootstrap_components as dbc
+import datetime
+import os
+import json
 from webui.layout import create_main_layout
 
-# This is a temporary, insecure password. We will replace this later.
-VALID_USERNAME = "admin"
-VALID_PASSWORD = "a9b1c8d0e7f6a5b4c3d2e1f0"
+# Load credentials from environment variable
+credentials_json = os.environ.get("CREDENTIALS")
+VALID_CREDENTIALS = json.loads(credentials_json) if credentials_json else {}
 
 def create_login_layout():
     return dbc.Container([
@@ -53,8 +56,37 @@ def register_login_callbacks(app):
     )
     def handle_login(n_clicks, username, password):
         if n_clicks:
-            if username == VALID_USERNAME and password == VALID_PASSWORD:
-                return {'logged_in': True}, False, ""
+            if username in VALID_CREDENTIALS and VALID_CREDENTIALS[username] == password:
+                session_data = {
+                    'logged_in': True,
+                    'login_time': datetime.datetime.utcnow().isoformat()
+                }
+                return session_data, False, ""
             else:
                 return no_update, True, "Incorrect username or password."
         return no_update, False, ""
+
+    @app.callback(
+        Output('session', 'data', allow_duplicate=True),
+        Input('logout-button', 'n_clicks'),
+        prevent_initial_call=True
+    )
+    def handle_logout(n_clicks):
+        if n_clicks:
+            return {'logged_in': False}
+        return no_update
+
+    @app.callback(
+        Output('session', 'data', allow_duplicate=True),
+        Input('session-logout-interval', 'n_intervals'),
+        State('session', 'data'),
+        prevent_initial_call=True
+    )
+    def auto_logout(n_intervals, session_data):
+        if session_data and session_data.get('logged_in'):
+            login_time_str = session_data.get('login_time')
+            if login_time_str:
+                login_time = datetime.datetime.fromisoformat(login_time_str)
+                if (datetime.datetime.utcnow() - login_time) > datetime.timedelta(days=1):
+                    return {'logged_in': False}
+        return no_update

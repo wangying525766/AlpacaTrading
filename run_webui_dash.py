@@ -7,8 +7,10 @@ import argparse
 import sys
 import os
 import socket
-from webui.app_dash import run_app  
+from webui.app_dash import run_app
+from dotenv import load_dotenv
 
+load_dotenv()
 
 def find_available_port(start_port, end_port=None):
     """Find an available port in the given range"""

@@ -113,6 +113,11 @@ def create_main_layout():
             # Intervals and stores
             *create_intervals(),
             *create_stores(),
+            dcc.Interval(
+                id='session-logout-interval',
+                interval=60*1000,  # Check every minute
+                n_intervals=0
+            ),
             
             # Client-side script to handle iframe messages for prompt modal
             html.Script("""
