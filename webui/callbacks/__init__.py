@@ -9,6 +9,7 @@ from .report_callbacks import register_report_callbacks
 from .control_callbacks import register_control_callbacks
 from .trading_callbacks import register_trading_callbacks
 from .storage_callbacks import register_storage_callbacks
+from .login_callbacks import register_login_callbacks
 from .social_callbacks import register_social_callbacks
 from .dashboard_callbacks import register_dashboard_callbacks
 from .backtest_callbacks import register_backtest_callbacks
@@ -22,6 +23,7 @@ def register_all_callbacks(app):
     register_control_callbacks(app)
     register_trading_callbacks(app)
     register_storage_callbacks(app)
+    register_login_callbacks(app)
     register_strategy_callbacks(app)
     register_social_callbacks(app)
     register_dashboard_callbacks(app)

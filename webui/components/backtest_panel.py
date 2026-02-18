@@ -1,5 +1,29 @@
 from dash import html, dcc
 import dash_bootstrap_components as dbc
+import plotly.graph_objects as go
+
+def create_placeholder_figure():
+    """Create a placeholder figure for the backtest chart."""
+    fig = go.Figure()
+    fig.update_layout(
+        xaxis={"visible": False},
+        yaxis={"visible": False},
+        annotations=[
+            {
+                "text": "Enter a ticker symbol and click 'Run Backtest' to view results.",
+                "xref": "paper",
+                "yref": "paper",
+                "showarrow": False,
+                "font": {
+                    "size": 16,
+                    "color": "white"
+                }
+            }
+        ],
+        plot_bgcolor='rgba(0,0,0,0)',
+        paper_bgcolor='rgba(0,0,0,0)',
+    )
+    return fig
 
 def create_backtest_panel():
     """Create the backtest panel component"""
@@ -30,7 +54,7 @@ def create_backtest_panel():
                         id="backtest-loading",
                         children=[
                             html.Div(id="backtest-results-container", children=[
-                                dcc.Graph(id="backtest-chart"),
+                                dcc.Graph(id="backtest-chart", figure=create_placeholder_figure()),
                                 html.Div(id="backtest-stats", className="mt-3")
                             ])
                         ]

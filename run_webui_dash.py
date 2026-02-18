@@ -78,7 +78,7 @@ def main():
     
     if port != args.port:
         print(f"Port {args.port} is already in use. Using port {port} instead.")
-    
+
     print(f"Starting TradingAgents Dash Web UI on port {port}...")
     
     # Run the app

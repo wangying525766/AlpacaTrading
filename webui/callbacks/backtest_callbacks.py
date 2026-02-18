@@ -8,6 +8,8 @@ import os
 import datetime
 import yfinance as yf
 
+from webui.components.backtest_panel import create_placeholder_figure
+
 def register_backtest_callbacks(app):
     @app.callback(
         [Output("backtest-chart", "figure"),
@@ -19,7 +21,7 @@ def register_backtest_callbacks(app):
     )
     def run_backtest(n_clicks, ticker):
         if not ticker:
-            return {}, "", {"display": "none"}
+            return create_placeholder_figure(), "", {"display": "block"}
             
         ticker = ticker.upper().strip()
         

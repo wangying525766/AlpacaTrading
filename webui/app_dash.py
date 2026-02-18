@@ -12,6 +12,7 @@ RECENT FIX: Multiple Symbol Page Refresh Issue
 """
 
 import dash
+from dash import dcc, html
 import dash_bootstrap_components as dbc
 from flask import Flask
 import logging
@@ -96,7 +97,11 @@ def create_app():
     app.title = APP_CONFIG["title"]
 
     # Set the layout
-    app.layout = create_main_layout()
+    app.layout = html.Div([
+        dcc.Location(id='url', refresh=False),
+        dcc.Store(id='session', storage_type='session'),
+        html.Div(id='page-content')
+    ])
 
     # Register all callbacks
     register_all_callbacks(app)

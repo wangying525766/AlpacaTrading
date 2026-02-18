@@ -80,10 +80,6 @@ def register_dashboard_callbacks(app):
          Input("dashboard-load-interval", "n_intervals")],
     )
     def refresh_dashboard_data(n_clicks, n_intervals):
-        ctx = callback_context
-        if not ctx.triggered:
-            raise PreventUpdate
-
         # Always update data on load or refresh click
         email_ticker_ingest.update_market_data()
 
