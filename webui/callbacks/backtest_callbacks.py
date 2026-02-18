@@ -78,6 +78,11 @@ def register_backtest_callbacks(app):
         price_source = "yfinance"
         
         # --- Step 3: Load and Process Key Levels Data ---
+        # Add dummy trace for legend
+        fig.add_trace(go.Scatter(x=[None], y=[None], mode='lines',
+                                line=dict(color='#E5C185', width=2, dash='dash'),
+                                name='Key Level'))
+
         key_levels_files = glob.glob("data/key_levels/key_levels_*.csv")
         all_levels_data = []
         for f in key_levels_files:
@@ -94,18 +99,32 @@ def register_backtest_callbacks(app):
         if all_levels_data:
             levels_df = pd.concat(all_levels_data, ignore_index=True)
             levels_df.drop_duplicates(subset=['level'], inplace=True)
+            
+            color = '#E5C185' # A gold-like color
             for index, row in levels_df.iterrows():
+                level_price = row['level']
+
                 fig.add_shape(
                     type="line",
                     x0=hist.index[0],
-                    y0=row['level'],
+                    y0=level_price,
                     x1=hist.index[-1],
-                    y1=row['level'],
+                    y1=level_price,
                     line=dict(
-                        color="MediumPurple",
+                        color=color,
                         width=1,
-                        dash="dashdot",
+                        dash="dash",
                     ),
+                )
+                fig.add_annotation(
+                    x=hist.index[-1],
+                    y=level_price,
+                    text=f"${level_price:.2f}",
+                    showarrow=False,
+                    xanchor="left",
+                    yanchor="middle",
+                    font=dict(color=color, size=10),
+                    bgcolor="rgba(0,0,0,0.5)"
                 )
 
         # --- Step 4: Load and Process BigFlow Data (if available) ---
