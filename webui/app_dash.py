@@ -1,24 +1,22 @@
 """
 app_dash.py - Simplified Dash-based web UI for TradingAgents
 
-This is the refactored version of app_dash.py that uses organized modules
-for better code structure and maintainability.
+Refactored version with organized modules for maintainability.
 
 RECENT FIX: Multiple Symbol Page Refresh Issue
-- Fixed issue where only the first symbol would show after page refresh when analyzing multiple symbols
-- The app now stores symbols list in browser storage and restores all symbol pages correctly
+- Stores symbols list in browser storage and restores all symbol pages correctly
 - Added safeguards to prevent index out of range errors during pagination
-- Users can now refresh the page while analyzing multiple symbols without losing access to all symbol pages
 """
+
+import logging
+import os
 
 import dash
 from dash import dcc, html
 import dash_bootstrap_components as dbc
 from flask import Flask
-import logging
 
-from webui.config.constants import APP_CONFIG, COLORS
-from webui.layout import create_main_layout
+from webui.config.constants import APP_CONFIG
 from webui.callbacks import register_all_callbacks
 
 
@@ -26,118 +24,115 @@ def apply_sequential_mode_fix():
     """Apply fix for sequential execution mode report mapping bug"""
     try:
         from webui.utils.state import AppState
-        
+
         # Check if fix is already applied
-        if hasattr(AppState, '_mapping_fix_applied'):
+        if hasattr(AppState, "_mapping_fix_applied"):
             return True
-            
-        # Patch the process_chunk_updates method to fix report mapping
+
         original_process_chunk_updates = AppState.process_chunk_updates
-        
+
         def fixed_process_chunk_updates(self, chunk):
             """Fixed version that correctly maps social analyst reports"""
-            
-            # 🔍 DEBUG: Log what we're receiving
-            current_symbol = getattr(self, 'current_symbol', '')
+            current_symbol = getattr(self, "current_symbol", "")
             if current_symbol:
                 state = self.get_state(current_symbol)
                 if state:
                     social_status = state["agent_statuses"].get("Social Analyst")
                     if social_status == "in_progress":
-                        chunk_fields = list(chunk.keys())
-                        # print(f"[DEBUG] Social Analyst chunk received: {chunk_fields}")
-                        
-                        # Check for the ACTUAL bug: Social Analyst writing to market_report
+                        # Detect bug: Social Analyst writing to market_report
                         if "market_report" in chunk and "sentiment_report" not in chunk:
-                            # print(f"[FIX] 🛑 Detected Social Analyst incorrectly updating market_report - fixing...")
-                            # Move the content to the correct field
                             chunk["sentiment_report"] = chunk["market_report"]
                             del chunk["market_report"]
-                            # print(f"[FIX] ✅ Corrected: market_report -> sentiment_report")
-                        elif "sentiment_report" in chunk:
-                            # This is correct - Social Analyst updating sentiment_report
-                            sentiment_length = len(chunk["sentiment_report"])
-                            # print(f"[DEBUG] ✅ Social Analyst correctly updating sentiment_report ({sentiment_length} chars)")
-            
-            # Call the original method with the fixed chunk
             return original_process_chunk_updates(self, chunk)
-        
-        # Apply the patch
+
         AppState.process_chunk_updates = fixed_process_chunk_updates
         AppState._mapping_fix_applied = True
         return True
-        
+
     except Exception as e:
         print(f"⚠️ Could not apply sequential mode fix: {e}")
         return False
 
 
-def create_app():
+def create_app() -> dash.Dash:
     """Create and configure the Dash application"""
-    
+
     # Apply the sequential mode fix first
     apply_sequential_mode_fix()
-    
+
     # Initialize Flask server
-    server = Flask(__name__)
+    flask_server = Flask(__name__)
 
     # Initialize Dash app with Bootstrap
     app = dash.Dash(
         __name__,
-        server=server,
+        server=flask_server,
         external_stylesheets=[
             dbc.themes.DARKLY,
-            *APP_CONFIG["external_stylesheets"]
+            *APP_CONFIG["external_stylesheets"],
         ],
         suppress_callback_exceptions=APP_CONFIG["suppress_callback_exceptions"],
         update_title=APP_CONFIG["update_title"],
     )
 
-    # Set app title
     app.title = APP_CONFIG["title"]
 
-    # Set the layout
-    app.layout = html.Div([
-        dcc.Location(id='url', refresh=False),
-        dcc.Store(id='session', storage_type='session'),
-        html.Div(id='page-content')
-    ])
+    # Keep your current router shell layout
+    app.layout = html.Div(
+        [
+            dcc.Location(id="url", refresh=False),
+            dcc.Store(id="session", storage_type="session"),
+            html.Div(id="page-content"),
+        ]
+    )
 
-    # Register all callbacks
+    # Register all callbacks (IMPORTANT: should be called once per app instance)
     register_all_callbacks(app)
 
     return app
 
 
-def run_app(port=7860, share=False, server_name="127.0.0.1", debug=False, max_threads=1):
+def run_app(
+    port: int = 7860,
+    share: bool = False,
+    server_name: str = "0.0.0.0",
+    debug: bool = False,
+    max_threads: int = 1,
+) -> int:
     """Run the TradingAgents Dash Web UI"""
-    
-    # Create the app
+
+    # Double-safety: hosted platforms provide PORT; always respect it if present.
+    port = int(os.environ.get("PORT", str(port)))
+    server_name = os.environ.get("SERVER_NAME", server_name) or "0.0.0.0"
+
     app = create_app()
-    
+
     if debug:
-        print(f"Starting TradingAgents Dash Web UI on port {port}...")
+        print(f"Starting TradingAgents Dash Web UI on {server_name}:{port} ...")
     else:
         print("Starting TradingAgents Web UI...")
-    
+
     # Suppress verbose HTTP request logs from Werkzeug
     logging.getLogger("werkzeug").setLevel(logging.WARNING)
-    # Optionally also silence Dash's callback exceptions logger
     logging.getLogger("dash.callback").setLevel(logging.ERROR)
-    
-    # Run the app
+
+    # Dash dev server; fine for internal beta. (Later you can switch to gunicorn.)
     app.run(
-        port=port,
         host=server_name,
+        port=port,
         debug=debug,
-        dev_tools_hot_reload=debug
+        dev_tools_hot_reload=debug,
     )
-    
+
     return 0
 
 
-# Create the app instance for use by other modules
-app = create_app()
+# For WSGI servers (gunicorn) usage:
+# gunicorn "webui.app_dash:server" --bind 0.0.0.0:$PORT
+# IMPORTANT: We do NOT create the Dash app at import time to avoid side effects.
+_app_for_server = create_app()
+server = _app_for_server.server
+
 
 if __name__ == "__main__":
-    run_app(debug=True) 
+    run_app(debug=True)
