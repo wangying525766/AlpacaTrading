@@ -97,7 +97,6 @@ def create_main_layout():
     main_tabs = dbc.Tabs([
         dbc.Tab(dashboard_card, label="Dashboard", tab_id="main-tab-dashboard", label_style={"fontWeight": "bold"}),
         dbc.Tab(deep_analysis_content, label="Deep Analysis", tab_id="main-tab-analysis", label_style={"fontWeight": "bold"}),
-        dbc.Tab(strategy_card, label="Strategy", tab_id="main-tab-strategy", label_style={"fontWeight": "bold"}, disabled=True),
         dbc.Tab(backtest_card, label="Backtest", tab_id="main-tab-backtest", label_style={"fontWeight": "bold"}),
     ], id="main-content-tabs", active_tab="main-tab-dashboard", className="mb-4")
 
@@ -176,6 +175,7 @@ def create_main_layout():
             # Main content
             header,
             main_tabs,
+            html.Div(strategy_card, style={"display": "none"}),
             html.Div(className="mt-4"),
         ],
         fluid=True,
