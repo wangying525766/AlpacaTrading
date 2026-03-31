@@ -47,7 +47,7 @@ def register_social_callbacks(app):
 #         out_file = TMP_DIR / f"crawl_{stamp}.json"
 #
 #         cmd = [
-#             PYTHON_BIN, "-u", "crawl_twitter.py",
+#             PYTHON_BIN, "-u", "scripts/social/crawl_twitter.py",
 #             "--query", query,
 #             "--hours", str(int(hours or 6)),
 #             "--topk", str(int(topk or 8)),
@@ -106,7 +106,7 @@ def register_social_callbacks(app):
         subj_kw      = (query or "").strip() or os.getenv("EMAIL_SUBJECT_KEYWORD", "OpenOutCrier")
 
         # 用邮箱爬虫（不用传 CLI 参数，全部走环境变量）
-        cmd = [PYTHON_BIN, "-u", "email_ticker_ingest.py"]
+        cmd = [PYTHON_BIN, "-u", "scripts/jobs/email_ticker_ingest.py"]
 
         # 把前端参数传给子进程作为环境变量，确保写到我们指定的 tmp 路径
         env = {

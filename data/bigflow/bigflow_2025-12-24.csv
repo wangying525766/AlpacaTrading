@@ -1,2 +1,0 @@
-time,ticker,exp,strike,cp,spot,details,type,premium_raw,premium,sector,order_type,qty,unusual
-10:17 AM,AMZN,05/15/26,250,CALLS,231.87,"1,500 @ 13.60",SPLIT,$2M,2040000.0,DISCR,SPLIT,"1,500",False

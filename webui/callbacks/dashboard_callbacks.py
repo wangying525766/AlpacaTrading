@@ -12,7 +12,7 @@ import os
 from pathlib import Path
 
 from webui.components.dashboard_panel import get_market_data, render_email_content
-import email_ticker_ingest
+from scripts.jobs import email_ticker_ingest
 
 def get_latest_market_data(data_type: str):
     """
